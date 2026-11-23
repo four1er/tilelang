@@ -295,7 +295,7 @@ TVM_DLL const Op &ascend_set_copy_pad_value();
 /*!
  * \brief Ascend DMA copy from UBuf to GM.
  *
- * ascend_copy_ubuf_to_gm(dst, src, sid, burst_num, burst_len, l2_cache_ctl,
+ * ascend_copy_ubuf_to_gm(dst, src, sid, burst_num, burst_len, l2_cache_ctrl,
  * burst_dst_stride, burst_src_stride)
  *
  */
@@ -370,7 +370,7 @@ TVM_DLL const Op &ascend_load_cb_sf();
  *
  * ascend_copy_matrix_cc_to_ub(dst, src, sid, n_size, m_size,
  * loop_dst_stride, loop_src_stride, dual_dst_ctl, sub_blockid, clip_relu_pre,
- * unit_flag_ctl, quant_pre, relu_pre, split_en, NZ2ND_en, quant_post,
+ * unit_flag_ctrl, quant_pre, relu_pre, split_en, NZ2ND_en, quant_post,
  * relu_post, clip_relu_post, loop_enhance_en, eltwise_op, eltwise_antq_en,
  * loop_enhance_merge_en, C0_pad_en, wino_post_en, broadcast_en, NZ2DN_en)
  *

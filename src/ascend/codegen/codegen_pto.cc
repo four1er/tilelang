@@ -356,12 +356,12 @@ std::string StoreL2CacheName(const PrimExpr &control) {
   };
   int64_t value = 0;
   ICHECK(TryGetConstInt(control, &value))
-      << "PTO UB->GM MTE l2_cache_ctl must be a constant in [0, 15], got "
+      << "PTO UB->GM MTE l2_cache_ctrl must be a constant in [0, 15], got "
       << control;
-  ICHECK_GE(value, 0) << "PTO UB->GM MTE l2_cache_ctl must be in [0, 15], got "
+  ICHECK_GE(value, 0) << "PTO UB->GM MTE l2_cache_ctrl must be in [0, 15], got "
                       << value;
-  ICHECK_LT(value, 16) << "PTO UB->GM MTE l2_cache_ctl must be in [0, 15], got "
-                       << value;
+  ICHECK_LT(value, 16)
+      << "PTO UB->GM MTE l2_cache_ctrl must be in [0, 15], got " << value;
   return kNames[value];
 }
 
@@ -3075,12 +3075,12 @@ std::string CodeGenTileLangPTO::GetAscendCopyGmUbExpr_(const CallNode *op) {
   }
   int64_t l2_cache_ctrl = 0;
   ICHECK(TryGetConstInt(op->args[8], &l2_cache_ctrl))
-      << "PTO GM->UB MTE requires constant l2_cache_ctl, got " << op->args[8];
+      << "PTO GM->UB MTE requires constant l2_cache_ctrl, got " << op->args[8];
   ICHECK_GE(l2_cache_ctrl, 0)
-      << "PTO GM->UB MTE l2_cache_ctl must be in [0, 15], got "
+      << "PTO GM->UB MTE l2_cache_ctrl must be in [0, 15], got "
       << l2_cache_ctrl;
   ICHECK_LT(l2_cache_ctrl, 16)
-      << "PTO GM->UB MTE l2_cache_ctl must be in [0, 15], got "
+      << "PTO GM->UB MTE l2_cache_ctrl must be in [0, 15], got "
       << l2_cache_ctrl;
 
   std::string dst = current_function_is_cube_
@@ -3429,9 +3429,9 @@ void CodeGenTileLangPTO::EmitAscendCopyMatrixCcToUb(const CallNode *op) {
   }
 
   require_zero(9, "clip_relu_pre");
-  int64_t unit_flag_ctrl = require_const(10, "unit_flag_ctl");
+  int64_t unit_flag_ctrl = require_const(10, "unit_flag_ctrl");
   ICHECK(unit_flag_ctrl == 0 || unit_flag_ctrl == 2 || unit_flag_ctrl == 3)
-      << "PTO L0C->UB MTE unit_flag_ctl must be 0, 2, or 3, got "
+      << "PTO L0C->UB MTE unit_flag_ctrl must be 0, 2, or 3, got "
       << unit_flag_ctrl;
   require_zero(11, "quant_pre");
   require_zero(12, "relu_pre");
